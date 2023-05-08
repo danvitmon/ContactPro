@@ -15,7 +15,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="AppUserId" />
-        <input type="hidden" asp-for="DateCreated" />
+        <input type="hidden" asp-for="CreatedDate" />
         <input type="hidden" asp-for="ImageData" />
         <input type="hidden" asp-for="ImageType" />
         <div class="row g-3 p-2">
@@ -36,14 +36,46 @@
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                     <div class="col-12 col-lg-6">
-                        <label asp-for="Complete" class="control-label"></label>
-                        <input asp-for="Complete" class="form-control" />
-                        <span asp-validation-for="Complete" class="text-danger"></span>
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     <div class="col-12 col-lg-6 mt-2">
-                        <label asp-for="DateCreated" class="control-label"></label>
-                        <input asp-for="DateCreated" class="form-control" />
-                        <span asp-validation-for="DateCreated" class="text-danger"></span>
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mt-2">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label asp-for="Address1" class="control-label"></label>
+                        <input asp-for="Address1" class="form-control" />
+                        <span asp-validation-for="Address1" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label asp-for="Address2" class="control-label"></label>
+                        <input asp-for="Address2" class="form-control" />
+                        <span asp-validation-for="Address2" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-lg-6 mt-2">
+                        <label asp-for="City" class="control-label"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-lg-4 mt-2">
+                        <label asp-for="State" class="control-label"></label>
+                        <select asp-for="State" class="form-select" asp-items="ViewBag.StatesList">
+                            <option></option>
+                        </select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 col-lg-2 mt-2">
+                        <label asp-for="ZipCode" class="control-label"></label>
+                        <input asp-for="ZipCode" class="form-control" />
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
                     </div>
                     <div class="col-12 col-lg-6 mt-3">
                         <label asp-for="Categories" class="control-label"></label>
@@ -51,9 +83,9 @@
                         
                     </div>
                     <div class="col-12 col-lg-6 mt-3">
-                        <label asp-for="DueDate" class="control-label"></label>
-                        <input asp-for="DueDate" class="form-control" />
-                        <span asp-validation-for="DueDate" class="text-danger"></span>
+                        <label asp-for="DateOfBirth" class="control-label"></label>
+                        <input asp-for="DateOfBirth" class="form-control" />
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                     </div>
                     <div class="col-12 d-flex justify-content-end mt-2">
                         <button type="submit" class="btn btn-lg btn-primary rounded-pill">Save</button>

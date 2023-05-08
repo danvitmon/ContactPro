@@ -12,7 +12,7 @@ namespace ContactPro.Models
         public string? AppUserId { get; set; }
 
         [Required]
-        [Display(Name= "Accessory Name")]
+        [Display(Name= "Category Name")]
         public string? Name { get; set; }
 
         // Navigation Property

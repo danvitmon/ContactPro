@@ -142,18 +142,28 @@ namespace ContactPro.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("text");
+
                     b.Property<string>("AppUserId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Complete")
+                    b.Property<string>("City")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("DueDate")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -165,6 +175,21 @@ namespace ContactPro.Data.Migrations
 
                     b.Property<string>("ImageType")
                         .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("State")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ZipCode")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

@@ -15,19 +15,48 @@ namespace ContactPro.Models
 
 
         [Required]
-        [Display(Name = "Objective Name")]
+        [Display(Name = "First Name")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
         public string? FirstName { get; set; }
 
-        public string? Complete { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
+        public string? LastName { get; set; }
 
-        [Display(Name = "Due Date")]
-        [DataType(DataType.Date)]
-        public DateTime? DueDate { get; set; }
 
-        [Display(Name = "Date Created")]
+        [NotMapped]
+        public string? FullName { get { return $"{FirstName} {LastName}"; } }
+
+        [Required]
         [DataType(DataType.Date)]
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+        [Display(Name = "Birthday")]
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
+
+        public string? Address1 { get; set; }
+
+        public string? Address2 { get; set; }
+
+        public string? City { get; set; }
+
+        public Enums.States? State { get; set; }
+
+        [Display(Name = "Zip Code")]
+        [DataType(DataType.PostalCode)]
+        public int? ZipCode { get; set; }
+
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
+        public string? Email { get; set; }
+
+        [Required]
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        public string? PhoneNumber { get; set; }
 
 
         // Image Properties
