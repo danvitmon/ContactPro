@@ -7,7 +7,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>My Contacts</h1>
+<h1>My Trackr</h1>
 @if (Model.Count() > 0)
 {
     <div class="row">
@@ -21,16 +21,16 @@
         <form asp-action="SearchContacts" asp-controller="Contacts" method="post">
             <div class="input-group">
                 <input class="form-control" type="search" name="searchString"
-                       placeholder="Contact Name" />
+                       placeholder="Objective Name" />
                 <input type="submit" class="btn btn-outline-primary" value="Search" />
             </div>
         </form>
         <form asp-action="Index" asp-controller="Contacts" method="post">
             <div class="mt-5">
-                <label class="form-label fw-bold">CATEGORY FILTER</label>
+                <label class="form-label fw-bold">Filter by</label>
                 <select name="categoryId" class="form-control" asp-items="ViewBag.Categories"
                         onchange="this.form.submit()" onfocus="this.selectedIndex=-1;">
-                    <option>All Contacts</option>
+                    <option>All Objectives</option>
                 </select>
             </div>
         </form>
@@ -50,27 +50,17 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">@contact.FullName</h5>
-                                        <address class="card-text">
-                                                @contact.Address1 <br>
-                                            @if (!string.IsNullOrEmpty(contact.Address2))
-                                            {
-                                                @contact.Address2 <br>
-                                            }
-                                            @(!string.IsNullOrEmpty(contact.Address2)? contact.Address2 : "")
-                                                @contact.City, @contact.State, @contact.ZipCode
-                                        </address>
+                                        <h5 class="card-title">@contact.FirstName</h5>
                                         <div class="card-text">
-                                            <span class="fw-bold me-2">Phone:</span>
-                                                @contact.PhoneNumber
+                                            <span class="fw-bold me-2">Date Created:</span>
+                                                @contact.DateCreated
                                         </div>
                                         <div class="card-text">
-                                            <span class="fw-bold me-2">Email:</span>
-                                                @contact.Email
+                                            <span class="fw-bold me-2">Due Date:</span>
+                                                @contact.DueDate
                                         </div>
                                         <div class="fs-4">
                                             <a class="me-3 editIcons" asp-action="Edit" asp-route-id="@contact.Id"><i class="bi bi-pencil-fill"></i></a>
-                                            <a class="me-3 editIcons" asp-action="EmailContact" asp-route-id="@contact.Id"><i class="bi bi-envelope-fill"></i></a>
                                             <a class="me-3 editIcons" asp-action="Delete" asp-route-id="@contact.Id"><i class="bi bi-trash-fill text-danger"></i></a>
                                         </div>
                                         <div>
@@ -98,7 +88,7 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">No Contacts Found</h5>
+                                    <h5 class="card-title">No Objectives Found</h5>
                                     <div class="card-text">
                                         <div class="row">
                                             <div class="col-12 mb-2">

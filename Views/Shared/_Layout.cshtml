@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ContactPro</title>
+    <title>@ViewData["Title"] - Trackr</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ContactPro.styles.css" asp-append-version="true" />
@@ -14,15 +14,15 @@
             <div class="container-fluid">
                 @if (!User.Identity!.IsAuthenticated)
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Contact-RDX</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trackr</a>
                 }
                 else
                 {
 
-                    <a class="navbar-brand nav-link dropdown-toggle" data-bs-toggle="dropdown">Contact-RDX</a>
+                    <a class="navbar-brand nav-link dropdown-toggle" data-bs-toggle="dropdown">Trackr</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Index">My Contacts</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Contacts" asp-action="Index">My Tracking</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Categories" asp-action="Index">Accessories</a>
                     </div>
                 }
 
@@ -58,7 +58,7 @@
                         &copy; @DateTime.Now.Year Coder Foundry All Rights Reserved
                     </div>
                     <div class="col d-flex justify-content-center">
-                        <img src="/img/ContactPro.png" height="50" />
+                        <img src="" height="50" />
                     </div>
                     <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
                         <a href="https://www.linkedin.com/" class="socialicons"><i class="bi-linkedin p-2"></i></a>
