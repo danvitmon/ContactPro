@@ -41,24 +41,30 @@ namespace ContactPro.Data
             // Obtaining the necessary services based on the IServiceProivder parameter
             var dbContextSvc = svcProvider.GetRequiredService<ApplicationDbContext>();
             var userManagerSvc = svcProvider.GetRequiredService<UserManager<AppUser>>();
+            var configurationSvc = svcProvider.GetRequiredService<IConfiguration>();
 
             // Align the database by checking Migrationgs
             await dbContextSvc.Database.MigrateAsync();
 
 
             // Seed Demo User(s)
-            await SeedDemoUsersAsync(userManagerSvc);
+            await SeedDemoUsersAsync(userManagerSvc, configurationSvc);
 
         }
 
         
         // Demo Users Seed Method
-        private static async Task SeedDemoUsersAsync(UserManager<AppUser> userManagerSvc)
+        private static async Task SeedDemoUsersAsync(UserManager<AppUser> userManagerSvc, IConfiguration configuration)
         {
-            AppUser demoUser = new AppUser();
+
+            string? demoEmail = configuration["DemoLoginEmail"] ?? Environment.GetEnvironmentVariable("DemoLoginEmail");
+            string? demoPassword = configuration["DemoLoginPassword"] ?? Environment.GetEnvironmentVariable("DemoLoginPassword");
+
+
+            AppUser demoUser = new AppUser()
             {
-                UserName = "demologin@contactpro.com",
-                Email = "demologin@contactpro.com",
+                UserName = demoEmail,
+                Email = demoEmail,
                 FirstName = "Demo",
                 LastName = "User",
                 EmailConfirmed = true
