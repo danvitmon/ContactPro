@@ -15,48 +15,19 @@ namespace ContactPro.Models
 
 
         [Required]
-        [Display(Name = "First Name")]
+        [Display(Name = "Objective Name")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
         public string? FirstName { get; set; }
 
-        [Required]
-        [Display(Name = "Last Name")]
-        [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
-        public string? LastName { get; set; }
+        public string? Complete { get; set; }
 
-
-        [NotMapped]
-        public string? FullName { get { return $"{FirstName} {LastName}"; } }
-
-        [Required]
+        [Display(Name = "Due Date")]
         [DataType(DataType.Date)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime? DueDate { get; set; }
 
-        [Display(Name = "Birthday")]
+        [Display(Name = "Date Created")]
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
-
-        public string? Address1 { get; set; }
-
-        public string? Address2 { get; set; }
-
-        public string? City { get; set; }
-
-        public Enums.States? State { get; set; }
-
-        [Display(Name = "Zip Code")]
-        [DataType(DataType.PostalCode)]
-        public int? ZipCode { get; set; }
-
-        [Required]
-        [Display(Name = "Email Address")]
-        [DataType(DataType.EmailAddress)]
-        public string? Email { get; set; }
-
-        [Required]
-        [Display(Name = "Phone Number")]
-        [DataType(DataType.PhoneNumber)]
-        public string? PhoneNumber { get; set; }
+        public DateTime DateCreated { get; set; }
 
 
         // Image Properties

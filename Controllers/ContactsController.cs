@@ -53,8 +53,6 @@ namespace ContactPro.Controllers
                 contacts = await _context.Contacts
                                          .Where(c => c.AppUserId == appUserId)
                                          .Include(c => c.Categories)
-                                         .OrderBy(c => c.LastName)
-                                         .ThenBy(c => c.FirstName)
                                          .ToListAsync(); // Communicating with database via (LINQ)
             }
             else
@@ -93,16 +91,12 @@ namespace ContactPro.Controllers
             if (string.IsNullOrEmpty(searchString))
             {
                 contacts = appUser?.Contacts
-                                .OrderBy(c=>c.LastName)
-                                .ThenBy(c=>c.FirstName)
                                 .ToList();
             }
             else
             {
                 contacts = appUser?.Contacts
-                                  .Where(c => c.FullName!.ToLower().Contains(searchString.ToLower()))
-                                  .OrderBy(c => c.LastName)
-                                  .ThenBy(c => c.FirstName)
+                                  .Where(c => c.FirstName!.ToLower().Contains(searchString.ToLower()))
                                   .ToList();
             }
 
@@ -131,75 +125,6 @@ namespace ContactPro.Controllers
             return View(contact);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EmailContact(int? id)
-        {
-            if(id == null)
-            {
-                return NotFound();
-            }
-
-            string? appUserId = _userManager?.GetUserId(User);
-            Contact? contact = await _context.Contacts
-                                             .Where(c => c.AppUserId == appUserId)
-                                             .FirstOrDefaultAsync(c => c.Id == id);
-
-            if ( contact == null)
-            {
-                return NotFound();
-            }
-
-            EmailData emailData = new EmailData()
-            {
-                EmailAddress = contact.Email,
-                FirstName = contact.FirstName,
-                LastName = contact.LastName
-            };
-
-            EmailContactViewModel viewModel = new EmailContactViewModel()
-            {
-                Contact = contact,
-                EmailData = emailData,
-            };
-
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EmailContact(EmailContactViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-
-                string? swalMessage = string.Empty;
-
-                try
-                {
-                    string? email = viewModel.EmailData!.EmailAddress;
-                    string? subject = viewModel.EmailData!.EmailSubject;
-                    string? htmlMessage = viewModel.EmailData!.EmailBody;
-
-
-                    await _emailService.SendEmailAsync(email!, subject!, htmlMessage!);
-
-                    swalMessage = "Email sent";
-                    return RedirectToAction(nameof(Index), new { swalMessage });
-
-                }
-                catch (Exception)
-                {
-                    swalMessage = "Error: Email failed to send";
-                    return RedirectToAction(nameof(Index), new { swalMessage = swalMessage });
-                    throw;
-                }
-            }
-
-
-            return View(viewModel);
-        }
-
         // GET: Contacts/Create
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -225,7 +150,7 @@ namespace ContactPro.Controllers
             if (ModelState.IsValid)
             {
                 contact.AppUserId = _userManager.GetUserId(User);
-                contact.CreatedDate = DateTime.UtcNow;
+                contact.DateCreated = DateTime.UtcNow;
 
                 if (contact.ImageFile != null)
                 {
@@ -233,9 +158,9 @@ namespace ContactPro.Controllers
                     contact.ImageType = contact.ImageFile.ContentType;
                 }
 
-                if (contact.DateOfBirth != null)
+                if (contact.DueDate != null)
                 {
-                    contact.DateOfBirth = DateTime.SpecifyKind(contact.DateOfBirth.Value, DateTimeKind.Utc);
+                    contact.DueDate = DateTime.SpecifyKind(contact.DueDate.Value, DateTimeKind.Utc);
                 }
 
                 _context.Add(contact);
@@ -288,7 +213,7 @@ namespace ContactPro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CreatedDate,AppUserId,FirstName,LastName,DateOfBirth,Address1,Address2,City,State,ZipCode,Email,PhoneNumber,ImageData,ImageType,ImageFile")] Contact contact, IEnumerable<int> selected)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DateCreated,AppUserId,FirstName,LastName,DueDate,Address1,Address2,City,State,ZipCode,Email,PhoneNumber,ImageData,ImageType,ImageFile")] Contact contact, IEnumerable<int> selected)
         {
             if (id != contact.Id)
             {
@@ -299,7 +224,7 @@ namespace ContactPro.Controllers
             {
                 try
                 {
-                    contact.CreatedDate = DateTime.SpecifyKind(contact.CreatedDate, DateTimeKind.Utc);
+                    contact.DateCreated = DateTime.SpecifyKind(contact.DateCreated, DateTimeKind.Utc);
 
                     if (contact.ImageFile != null)
                     {
@@ -307,9 +232,9 @@ namespace ContactPro.Controllers
                         contact.ImageType = contact.ImageFile.ContentType;
                     }
 
-                    if (contact.DateOfBirth != null)
+                    if (contact.DueDate != null)
                     {
-                        contact.DateOfBirth = DateTime.SpecifyKind(contact.DateOfBirth.Value, DateTimeKind.Utc);
+                        contact.DueDate = DateTime.SpecifyKind(contact.DueDate.Value, DateTimeKind.Utc);
                     }
 
                     _context.Update(contact);
